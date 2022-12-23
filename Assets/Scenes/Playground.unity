@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -545,13 +545,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerModel: {fileID: 404400191}
-  _lookSpeed: 4
-  _moveSpeed: 4
-  _rotationSpeed: 5
+  _lookSpeed: 8
+  _moveSpeed: 8
+  _rotationSpeed: 8
   _rollActive: 0
-  _rollSpeed: 3
-  _rollBuffer: 0.2
-  _rollDistance: 4
+  _rollSpeed: 4
+  _rollBuffer: 0.3
+  _rollDistance: 10
   _aimDirection: {x: 0, y: 0, z: 0}
   _moveDirection: {x: 0, y: 0, z: 0}
   _rollDirection: {x: 0, y: 0, z: 0}
