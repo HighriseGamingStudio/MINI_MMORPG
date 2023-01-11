@@ -37,9 +37,45 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Roll"",
                     ""type"": ""Button"",
                     ""id"": ""3e6bc588-1a59-4806-815c-63ec9b8e0c44"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LT"",
+                    ""type"": ""Button"",
+                    ""id"": ""77238631-78ab-4ec7-8d39-c732cb269c84"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RT"",
+                    ""type"": ""Button"",
+                    ""id"": ""b04f2b6b-1a43-43ea-8228-16aa0e6bd59d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LB"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5ee8023-dd03-4a50-a84b-d8ee0d043780"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RB"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c7568dd-340a-4404-90e5-9146cfbfc897"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -109,7 +145,51 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf095806-57ad-428b-8f4f-0971d6d0ea59"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""853c45a5-295b-4f80-9aa8-ae1c48d0b507"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5338a6df-82de-46b8-9269-7b2a8122c8ae"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f05d0e5e-b0af-4a2c-9abe-8c4605c40ed1"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -191,7 +271,11 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         // Global
         m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
         m_Global_Move = m_Global.FindAction("Move", throwIfNotFound: true);
-        m_Global_Jump = m_Global.FindAction("Jump", throwIfNotFound: true);
+        m_Global_Roll = m_Global.FindAction("Roll", throwIfNotFound: true);
+        m_Global_LT = m_Global.FindAction("LT", throwIfNotFound: true);
+        m_Global_RT = m_Global.FindAction("RT", throwIfNotFound: true);
+        m_Global_LB = m_Global.FindAction("LB", throwIfNotFound: true);
+        m_Global_RB = m_Global.FindAction("RB", throwIfNotFound: true);
         // PointerFree
         m_PointerFree = asset.FindActionMap("PointerFree", throwIfNotFound: true);
         m_PointerFree_Pointer = m_PointerFree.FindAction("Pointer", throwIfNotFound: true);
@@ -256,13 +340,21 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Global;
     private IGlobalActions m_GlobalActionsCallbackInterface;
     private readonly InputAction m_Global_Move;
-    private readonly InputAction m_Global_Jump;
+    private readonly InputAction m_Global_Roll;
+    private readonly InputAction m_Global_LT;
+    private readonly InputAction m_Global_RT;
+    private readonly InputAction m_Global_LB;
+    private readonly InputAction m_Global_RB;
     public struct GlobalActions
     {
         private @InputActions m_Wrapper;
         public GlobalActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Global_Move;
-        public InputAction @Jump => m_Wrapper.m_Global_Jump;
+        public InputAction @Roll => m_Wrapper.m_Global_Roll;
+        public InputAction @LT => m_Wrapper.m_Global_LT;
+        public InputAction @RT => m_Wrapper.m_Global_RT;
+        public InputAction @LB => m_Wrapper.m_Global_LB;
+        public InputAction @RB => m_Wrapper.m_Global_RB;
         public InputActionMap Get() { return m_Wrapper.m_Global; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -275,9 +367,21 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnMove;
-                @Jump.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnJump;
+                @Roll.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRoll;
+                @Roll.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRoll;
+                @Roll.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRoll;
+                @LT.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLT;
+                @LT.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLT;
+                @LT.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLT;
+                @RT.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRT;
+                @RT.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRT;
+                @RT.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRT;
+                @LB.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLB;
+                @LB.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLB;
+                @LB.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnLB;
+                @RB.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRB;
+                @RB.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRB;
+                @RB.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnRB;
             }
             m_Wrapper.m_GlobalActionsCallbackInterface = instance;
             if (instance != null)
@@ -285,9 +389,21 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @Roll.started += instance.OnRoll;
+                @Roll.performed += instance.OnRoll;
+                @Roll.canceled += instance.OnRoll;
+                @LT.started += instance.OnLT;
+                @LT.performed += instance.OnLT;
+                @LT.canceled += instance.OnLT;
+                @RT.started += instance.OnRT;
+                @RT.performed += instance.OnRT;
+                @RT.canceled += instance.OnRT;
+                @LB.started += instance.OnLB;
+                @LB.performed += instance.OnLB;
+                @LB.canceled += instance.OnLB;
+                @RB.started += instance.OnRB;
+                @RB.performed += instance.OnRB;
+                @RB.canceled += instance.OnRB;
             }
         }
     }
@@ -336,7 +452,11 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     public interface IGlobalActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
+        void OnLT(InputAction.CallbackContext context);
+        void OnRT(InputAction.CallbackContext context);
+        void OnLB(InputAction.CallbackContext context);
+        void OnRB(InputAction.CallbackContext context);
     }
     public interface IPointerFreeActions
     {
